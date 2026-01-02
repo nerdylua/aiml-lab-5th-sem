@@ -1,7 +1,5 @@
-#THE FIRST CODE: TIC TAC TOE
-l = []
-def tictactoe(board, turn, flag):
-
+#TIC TAC TOE USING MINIMAX (DFS)
+def tictactoe(board, turn):
     maximum = -100000
     minimum = 100000
     count = 0
@@ -17,17 +15,17 @@ def tictactoe(board, turn, flag):
     for i in range(3):
         for j in range(3):
             if board[i][j] == '.':
-                if turn == 0:#IT IS Xs turn to play
+                if turn == 0:  # AI's turn (X)
                     board[i][j] = 'X'
-                    count = tictactoe(board, 1 - turn, 1)[0]
+                    count = tictactoe(board, 1 - turn)[0]
                     board[i][j] = '.'
                     if maximum < count:
                         maximum = count
                         best_move = (i, j)
                     maximum = max(maximum, count)
-                else:
+                else:  # Player's turn (O)
                     board[i][j] = 'O'
-                    count = tictactoe(board, 1 - turn, 1)[0]
+                    count = tictactoe(board, 1 - turn)[0]
                     if minimum > count:
                         minimum = count
                         best_move = (i, j)
@@ -66,10 +64,10 @@ def printBoard(board):
     
 board = [['.', '.', '.'], ['.', '.', '.'], ['.', '.', '.']]
 def simulate():
-    turn = 1    #AI STARTS FIRST
+    turn = 1  # AI STARTS FIRST
     while True:
         if turn == 0:
-            row, col = tictactoe(board, 0, 0)[1]
+            row, col = tictactoe(board, 0)[1]
             
             board[row][col] = 'X'
             printBoard(board)

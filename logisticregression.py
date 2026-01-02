@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from sklearn.datasets import load_iris
+import pandas as pd
+from sklearn.datasets import load_iris, load_breast_cancer
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
@@ -16,10 +17,21 @@ def logistic_regression(X, y, num_iterations=200, learning_rate=0.001):
         weights -= learning_rate * gradient_val
     return weights
 
-# Load Iris dataset
+# ========== DATASET 1: Iris ==========
 iris = load_iris()
 X = iris.data[:, :2]  # Use only the first two features (sepal length and width)
 y = (iris.target != 0) * 1  # Convert to binary classification
+
+# # ========== DATASET 2: Breast Cancer ==========
+# cancer = load_breast_cancer()
+# X = cancer.data[:, :2]  # Use first two features for visualization
+# y = cancer.target
+
+# # ========== DATASET 3: Titanic ==========
+# df = pd.read_csv('titanic.csv')
+# df = df[['Survived', 'Pclass', 'Age', 'Fare']].dropna()
+# X = df[['Pclass', 'Age']].values
+# y = df['Survived'].values
 
 # Split the dataset
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=9)

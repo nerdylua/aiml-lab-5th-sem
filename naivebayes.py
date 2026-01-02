@@ -1,10 +1,21 @@
 import numpy as np  
-from sklearn.datasets import load_iris  
+import pandas as pd
+from sklearn.datasets import load_iris, load_breast_cancer  
 from sklearn.model_selection import train_test_split  
 
-# Load iris dataset  
-iris = load_iris()  
-X, y = iris.data, iris.target  
+# ========== DATASET 1: Iris ==========
+data = load_iris()
+X, y = data.data, data.target
+
+# # ========== DATASET 2: Breast Cancer ==========
+# data = load_breast_cancer()
+# X, y = data.data, data.target
+
+# # ========== DATASET 3: Titanic ==========
+# df = pd.read_csv('titanic.csv')
+# df = df[['Survived', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].dropna()
+# X = df[['Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].values
+# y = df['Survived'].values  
 
 class NaiveBayes:  
     def fit(self, X, y):  
@@ -35,9 +46,9 @@ y_pred = nb.predict(X_test)
 
 # Results  
 print('Accuracy: %.4f' % np.mean(y_pred == y_test))  
-print("Predictions:", iris.target_names[y_pred])  
+print("Predictions:", y_pred)  
 
 # Optional confusion matrix and classification report  
 from sklearn.metrics import confusion_matrix, classification_report  
 print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))  
-print("\nClassification Report:\n", classification_report(y_test, y_pred, target_names=iris.target_names))
+print("\nClassification Report:\n", classification_report(y_test, y_pred))

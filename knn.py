@@ -1,13 +1,22 @@
-from sklearn.datasets import load_iris
+from sklearn.datasets import load_iris, load_breast_cancer
 from sklearn.model_selection import train_test_split
 import numpy as np
+import pandas as pd
 from collections import Counter
 
+# ========== DATASET 1: Iris ==========
+data = load_iris()
+X, y = data.data, data.target
 
-# Load iris dataset
-iris = load_iris()
-X, y = iris.data, iris.target
-class_names = iris.target_names
+# # ========== DATASET 2: Breast Cancer ==========
+# data = load_breast_cancer()
+# X, y = data.data, data.target
+
+# # ========== DATASET 3: Titanic ==========
+# df = pd.read_csv('titanic.csv')
+# df = df[['Survived', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].dropna()
+# X = df[['Pclass', 'Age', 'SibSp', 'Parch', 'Fare']].values
+# y = df['Survived'].values
 
 # Split dataset into training set and test set
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
@@ -47,7 +56,7 @@ knn.fit(X_train, y_train)
 # Predict the response for test dataset
 y_pred = knn.predict(X_test)
 print('Accuracy: %.4f' % np.mean(y_pred == y_test))
-print("Predictions:", class_names[y_pred])
+print("Predictions:", y_pred)
 
 
 # Optional confusion matrix
